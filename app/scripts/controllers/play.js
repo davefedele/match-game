@@ -35,7 +35,10 @@ angular.module( 'matchGameApp' )
           $scope.foundMatch = true;
           $scope.message = "You found a match!";
           $scope.pairsLeft -= 1;
+        }else{
+          $scope.message = "Try again...";
         }
+
     }else{
       $scope.firstCard = card;
       $scope.message = "Pick another card...";
