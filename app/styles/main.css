@@ -89,7 +89,8 @@ body {
   border: 1px solid green;
 }
 
-span.card {
+.card {
+  border: 1px solid black;
   float: left;
   font-size: 30px;
   text-align: center; 
