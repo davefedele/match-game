@@ -1,69 +1,88 @@
-angular.module('matchGameApp')
+angular.module( 'matchGameApp' )
 
-.controller('PlayCtrl', function( $scope, Deck ){
-  angular.extend($scope, Deck );
+.controller( 'PlayCtrl', function( $scope, $route, Game ){
+  angular.extend( $scope, Game );
+  $scope.gameOver = false;
   $scope.pairsLeft = 52/2;
-  $scope.flippedCards = [];
+  
+  $scope.firstCard = "";
+  $scope.secondCard = "";
+  
   $scope.matches = {};
-  $scope.matched = 'Pick a card!';
-  $scope.pairsFound = function(){
-    var result = "";
-    for( var key in $scope.matches) {
-      result += key.slice(4,6) + ' ';
+  $scope.foundMatch = false;
+  $scope.message = 'Pick a card!';
+  
+  $scope.play = function( card ) {
+    if( !card.flipped ) {
+      Game.flipCard( card );
     }
-    return result;
+
+    if( $scope.foundMatch === true) {
+      $scope.foundMatch = false;
+      $scope.firstCard.hidden = true;
+      $scope.secondCard.hidden = true;
+    }
+    if( !$scope.firstCard || $scope.secondCard ){
+      Game.flipCard($scope.firstCard);
+      Game.flipCard($scope.secondCard);
+      $scope.firstCard = $scope.secondCard = undefined;
+    }
+
+    if( $scope.firstCard ) {
+        $scope.secondCard = card;
+        if( $scope.firstCard.value === $scope.secondCard.value) {
+          //remove and put to the side
+          $scope.foundMatch = true;
+          $scope.message = "You found a match!";
+          $scope.pairsLeft -= 1;
+        }
+    }else{
+      $scope.firstCard = card;
+      $scope.message = "Pick another card...";
+    }
+    
+    if( $scope.pairsLeft === 0 ) {
+      $scope.firstCard.hidden = true;
+      $scope.secondCard.hidden = true;
+      $scope.gameOver = true;
+      $scope.message = "Congratulations, you win!";
+    }
   };
   
-  $scope.play = function(card, deck) {
-    if( $scope.flippedCards.length === 2) {
-      $scope.flippedCards[0][2] = '?';
-      $scope.flippedCards[1][2] = '?';
-      $scope.flippedCards = [];
-    }
-
-    if(!$scope.matches.hasOwnProperty(card)) {
-      Deck.flipCard(card, deck);
-      $scope.flippedCards.push(card);
-    }
-
-    if( $scope.flippedCards.length ===  2){
-        if( $scope.flippedCards[0][1] === $scope.flippedCards[1][1] && $scope.flippedCards[0] !== $scope.flippedCards[1]) {
-          //cards are matched
-          $scope.matched = 'You found a match!';
-          $scope.matches[$scope.flippedCards[0]] = true;
-          $scope.matches[$scope.flippedCards[1]] = true;
-          $scope.pairsLeft -= 1;
-          $scope.flippedCards = [];
-        }else{
-          //cards are not a match
-          $scope.matched = 'Not a match :(';
-        }
-    }
-    if( $scope.pairsLeft === 0 ) {
-      $scope.pairsLeft = "Game Over";
-      $scope.matched = "Congratulations, you\'ve found them all! :)";
-    }
-  }
-  
-  $scope.deck = Deck.shuffleDeck( Deck.makeDeck() );
+  $scope.deck = Game.shuffleDeck( Game.makeDeck() );
 })
-.factory('Deck', function() {
+
+.factory( 'Game', function() {
   var counter = 0;
+
+  function Card( suit, value ) {
+    this.suit  = suit;
+    this.value = value;
+    this.image = suit + "_" + value;
+    this.flipped = false;
+    this.hidden = false;
+  }
+
+  flipCard = function( card ) { 
+    card.flipped = !card.flipped;
+    return card;
+  };
 
   makeDeck = function() {
     var deck = [];
-    var suits = [ '♥', '♣', '♠', '♦' ];
-    var values = [ 'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K' ];
+    var suits = [ 'hearts', 'clubs', 'spades', 'diamonds' ];
+    var values = [ 'ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king' ];
     
     suits.forEach(function( suit ) {
       values.forEach(function( value ) {
-        deck.push( [suit, value, '?'] );
+        var newCard = new Card( suit, value );
+        deck.push(newCard);
       });
     });
     return deck;    
   };
 
-  shuffleDeck = function(deck) {
+  shuffleDeck = function( deck ) {
     for( var i=0; i<deck.length; i++ ) {
       var temp = deck[i];
       var randIndex = Math.floor( Math.random() * ( deck.length - i )) + i;
@@ -73,16 +92,9 @@ angular.module('matchGameApp')
     return deck;
   };
 
-  flipCard = function(card, deck) { 
-    if(card[2] === '?') {
-      card[2] = card[0] + card[1];
-    }
-    return card;
-  };
-
   return {
+    flipCard: flipCard,
     makeDeck: makeDeck,
-    shuffleDeck: shuffleDeck,
-    flipCard: flipCard
+    shuffleDeck: shuffleDeck
   }
 });
