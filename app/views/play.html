@@ -1,30 +1,30 @@
-<div ng-controller="PlayCtrl">
+<div ng-controller="PlayCtrl" class="play-div">
   <h4 >Pairs Left To Find: {{pairsLeft}}</h4>
   <!-- <h4 >{{flippedCards.length}}</h4> -->
   <h4 >{{matched}}</h4>
   <table>
     <tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice( 0,12)" ng-click="play(card, deck)">
+        <span class="card" ng-repeat="card in deck.slice( 0,13)" ng-click="play(card, deck)">
           {{ card[2] }}
         </span>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(13,25)" ng-click="play(card, deck)">
+        <span class="card" ng-repeat="card in deck.slice(13,26)" ng-click="play(card, deck)">
           {{ card[2] }}
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(26,38)" ng-click="play(card, deck)">
+        <span class="card" ng-repeat="card in deck.slice(26,39)" ng-click="play(card, deck)">
           {{ card[2] }}
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(39,51)" ng-click="play(card, deck)">
+        <span class="card" ng-repeat="card in deck.slice(39,52)" ng-click="play(card, deck)">
           {{ card[2] }}
         </span>
       </td>

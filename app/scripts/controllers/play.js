@@ -15,9 +15,7 @@ angular.module('matchGameApp')
   };
   
   $scope.play = function(card, deck) {
-    if( $scope.pairsLeft === 0 ) {
-      $scope.pairsLeft = "Game Over";
-    }else if( $scope.flippedCards.length === 2) {
+    if( $scope.flippedCards.length === 2) {
       $scope.flippedCards[0][2] = '?';
       $scope.flippedCards[1][2] = '?';
       $scope.flippedCards = [];
@@ -40,6 +38,10 @@ angular.module('matchGameApp')
           //cards are not a match
           $scope.matched = 'Not a match :(';
         }
+    }
+    if( $scope.pairsLeft === 0 ) {
+      $scope.pairsLeft = "Game Over";
+      $scope.matched = "Congratulations, you\'ve found them all! :)";
     }
   }
   

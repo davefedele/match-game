@@ -82,6 +82,9 @@ body {
   }
 }
 
+.play-div {
+  width: 750px;
+}
 .match {
   border: 1px solid green;
 }
