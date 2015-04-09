@@ -1,31 +1,35 @@
 <div ng-controller="PlayCtrl" class="play-div">
   <h4 >Pairs Left To Find: {{pairsLeft}}</h4>
-  <!-- <h4 >{{flippedCards.length}}</h4> -->
+  <-- <h4 >{{flippedCards.length}}</h4> -->
   <h4 >{{matched}}</h4>
   <table>
     <tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice( 0,13)" ng-click="play(card, deck)">
-          {{ card[2] }}
+        <span class="" ng-repeat="card in deck.slice( 0,13)" ng-click="play(card)">
+          <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
+          <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(13,26)" ng-click="play(card, deck)">
-          {{ card[2] }}
+        <span class="" ng-repeat="card in deck.slice(13,26)" ng-click="play(card)">
+          <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
+          <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(26,39)" ng-click="play(card, deck)">
-          {{ card[2] }}
+        <span class="" ng-repeat="card in deck.slice(26,39)" ng-click="play(card)">
+          <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
+          <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="card" ng-repeat="card in deck.slice(39,52)" ng-click="play(card, deck)">
-          {{ card[2] }}
+        <span class="" ng-repeat="card in deck.slice(39,52)" ng-click="play(card)">
+          <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
+          <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr>
