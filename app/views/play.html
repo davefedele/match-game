@@ -1,11 +1,12 @@
 <div ng-controller="PlayCtrl" class="play-div">
+  <button ng-show="gameOver === false"class="btn btn-primary" onclick="window.location.reload();">Start Over</button>
+  <button ng-show="gameOver === true"class="btn btn-success" onclick="window.location.reload();">Play Again</button>
   <h4 >Pairs Left To Find: {{pairsLeft}}</h4>
-  <-- <h4 >{{flippedCards.length}}</h4> -->
-  <h4 >{{matched}}</h4>
+  <h4 >{{message}}</h4>
   <table>
     <tr>
       <td>
-        <span class="" ng-repeat="card in deck.slice( 0,13)" ng-click="play(card)">
+        <span class="card-span" ng-class="{'vis-hidden': card.hidden===true}" ng-repeat="card in deck.slice( 0,13)" ng-click="play(card)">
           <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
           <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
@@ -13,21 +14,21 @@
     </tr>
     <tr>
       <td>
-        <span class="" ng-repeat="card in deck.slice(13,26)" ng-click="play(card)">
+        <span class="card-span" ng-class="{'vis-hidden': card.hidden===true}" ng-repeat="card in deck.slice(13,26)" ng-click="play(card)">
           <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
           <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="" ng-repeat="card in deck.slice(26,39)" ng-click="play(card)">
+        <span class="card-span" ng-class="{'vis-hidden': card.hidden===true}" ng-repeat="card in deck.slice(26,39)" ng-click="play(card)">
           <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
           <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
       </td>
     </tr><tr>
       <td>
-        <span class="" ng-repeat="card in deck.slice(39,52)" ng-click="play(card)">
+        <span class="card-span" ng-class="{'vis-hidden': card.hidden===true}" ng-repeat="card in deck.slice(39,52)" ng-click="play(card)">
           <img class="card" ng-src="images/cards/cover.jpg" ng-show="card.flipped  === false">
           <img class="card" ng-src="images/cards/{{card.image}}.jpg" ng-show="card.flipped === true">
         </span>
