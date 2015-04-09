@@ -89,6 +89,10 @@ body {
   border: 1px solid green;
 }
 
+card-span {
+  width: 52px;
+}
+
 .card {
   border: 1px solid black;
   float: left;
@@ -97,4 +101,8 @@ body {
   margin: 2px;
   padding: 2px;
   width: 52px;
+}
+
+.vis-hidden{
+   visibility: hidden;
 }
