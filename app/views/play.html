@@ -1,6 +1,8 @@
 <div ng-controller="PlayCtrl" class="play-div">
   <button ng-show="gameOver === false"class="btn btn-primary" onclick="window.location.reload();">Start Over</button>
   <button ng-show="gameOver === true"class="btn btn-success" onclick="window.location.reload();">Play Again</button>
+  <h4>Match card values and try to clear the board!</h4>
+  <br>
   <h4 >Pairs Left To Find: {{pairsLeft}}</h4>
   <h4 >{{message}}</h4>
   <table>
